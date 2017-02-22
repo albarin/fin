@@ -11,6 +11,27 @@
 |
 */
 
+use App\Document;
+use App\Jobs\ProcessTransactionsDocument;
+use App\User;
+
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('document', function () {
+    $doc = new Document(['filename' => 'lacaixa.csv']);
+    $doc->user()->associate(User::first())->save();
+
+    dispatch(
+        (new ProcessTransactionsDocument($doc))
+    );
+
+    dd($doc);
+});
+
+Route::post('upload', function () {
+    request()->file('document')->store('documents');
+
+    return back();
 });

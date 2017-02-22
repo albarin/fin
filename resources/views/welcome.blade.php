@@ -66,6 +66,15 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
+
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                {{ csrf_field() }}
+
+                <input type="file" name="document">
+
+                <button type="submit">Upload</button>
+            </form>
+
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
