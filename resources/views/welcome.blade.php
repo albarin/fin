@@ -67,14 +67,6 @@
     <body>
         <div class="flex-center position-ref full-height">
 
-            <form action="/upload" method="post" enctype="multipart/form-data">
-                {{ csrf_field() }}
-
-                <input type="file" name="document">
-
-                <button type="submit">Upload</button>
-            </form>
-
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
@@ -88,15 +80,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    FinancesApp
                 </div>
             </div>
         </div>

@@ -11,17 +11,11 @@
 |
 */
 
-use App\Jobs\ProcessTransactionsDocument;
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('upload', function () {
-    $file = request()->file('document');
-    $file->store('documents');
+Route::get('/home', 'HomeController@index');
+Route::post('/upload', 'HomeController@upload');
 
-    dispatch(new ProcessTransactionsDocument($file->hashName(), $userId = 1));
-
-    return back();
-});
+Auth::routes();
