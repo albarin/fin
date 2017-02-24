@@ -2,27 +2,28 @@
 
 namespace App\Jobs;
 
-use App\Document;
+use App\Account;
+use App\Transaction;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Maatwebsite\Excel\Collections\CellCollection;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProcessTransactionsDocument implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $document;
+    private $document;
+    private $account;
 
-    /**
-     * Create a new job instance.
-     *
-     * @param Document $document
-     */
-    public function __construct(Document $document)
+    public function __construct(string $document, int $accountId)
     {
-        $this->document = $document;
+        $this->document = document_path($document);
+        $this->account = Account::find($accountId);
     }
 
     /**
@@ -32,7 +33,42 @@ class ProcessTransactionsDocument implements ShouldQueue
      */
     public function handle()
     {
-        $this->document->processed_at = new \DateTime();
-        $this->document->save();
+        Excel::load($this->document, function ($reader) {
+            $reader->formatDates(false);
+
+            foreach ($reader->get() as $line) {
+                $this->importTransaction(
+                    $this->prepareTransaction($line)
+                );
+            }
+        });
+
+        $this->removeDocument();
+    }
+
+    private function importTransaction(array $transaction)
+    {
+        $t = new Transaction($transaction);
+
+        $t->user()->associate($this->account->user);
+        $t->account()->associate($this->account);
+        $t->save();
+    }
+
+    private function prepareTransaction(CellCollection $line)
+    {
+        $line = array_values($line->toArray());
+
+        return [
+            'name' => $line[0],
+            'description' => $line[3],
+            'amount' => str_replace(',', '', $line[4]),
+            'date' => Carbon::createFromFormat('d/m/Y', $line[1]),
+        ];
+    }
+
+    private function removeDocument()
+    {
+        unlink(full_document_path($this->document));
     }
 }

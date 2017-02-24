@@ -16,8 +16,8 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description');
-            $table->integer('amount');
+            $table->string('description')->nullable();
+            $table->float('amount');
             $table->date('date');
 
             $table->integer('user_id')->unsigned();
@@ -29,7 +29,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('origin_account_id')->unsigned()->nullable();
             $table->foreign('origin_account_id')->references('id')->on('accounts');
 
-            $table->integer('category_id')->unsigned();
+            $table->integer('category_id')->unsigned()->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
 
             $table->timestamps();
