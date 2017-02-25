@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Account;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreAccount;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
@@ -27,10 +27,10 @@ class AccountController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param StoreAccount $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAccount $request)
     {
         $account = new Account($request->all());
         $account->user()
@@ -50,11 +50,11 @@ class AccountController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param StoreAccount $request
      * @param  \App\Account $account
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Account $account)
+    public function update(StoreAccount $request, Account $account)
     {
         $account->update($request->all());
 
