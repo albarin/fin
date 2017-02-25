@@ -1,11 +1,12 @@
 @extends('layouts.logged')
 
 @section('title')
-    Create new account
+    Edit account
 @endsection
 
 @section('main')
-    <form action="{{ route('accounts.store') }}" method="post">
+    <form action="{{ route('accounts.update', $account) }}" method="post">
+        {{ method_field('put') }}
         @include('accounts.form')
     </form>
 @endsection
