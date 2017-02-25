@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', 'HomeController@index');
-Route::post('/upload', 'HomeController@upload');
+Route::get('/import', 'ImportController@import');
+Route::post('/upload', 'ImportController@upload');
 
 Auth::routes();
