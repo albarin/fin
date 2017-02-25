@@ -67,6 +67,12 @@ class AccountController extends Controller
      */
     public function destroy(Account $account)
     {
-        //
+        if (!$account->transactions->isEmpty()) {
+            return redirect()->route('accounts.index');
+        }
+
+        $account->delete();
+
+        return redirect()->route('accounts.index');
     }
 }
