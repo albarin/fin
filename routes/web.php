@@ -18,5 +18,6 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index');
 Route::get('/import', 'ImportController@import');
 Route::post('/upload', 'ImportController@upload');
+Route::resource('accounts', 'AccountController');
 
 Auth::routes();

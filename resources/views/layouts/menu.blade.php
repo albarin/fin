@@ -4,6 +4,9 @@
     </div>
 
     <div class="panel-body">
-        <a href="{{ url('/import') }}">Import</a>
+        <ul>
+            <li><a href="{{ url('/accounts') }}">Accounts</a></li>
+            <li><a href="{{ url('/import') }}">Import</a></li>
+        </ul>
     </div>
 </div>
