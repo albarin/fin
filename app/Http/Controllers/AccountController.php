@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 class AccountController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -21,24 +19,25 @@ class AccountController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('accounts.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $account = new Account($request->all());
+        $account->user()
+            ->associate(Auth::user())
+            ->save();
+
+        return redirect()->route('accounts.index');
     }
 
     /**
