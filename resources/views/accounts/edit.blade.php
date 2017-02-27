@@ -5,7 +5,7 @@
 @endsection
 
 @section('main')
-    <form action="{{ route('accounts.update', $account) }}" method="post">
+    <form class="form-horizontal" action="{{ route('accounts.update', $account) }}" method="post">
         {{ method_field('put') }}
         @include('accounts.form')
     </form>
