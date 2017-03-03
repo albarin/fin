@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/upload', 'ImportController@upload');
     Route::resource('accounts', 'AccountController');
     Route::resource('categories', 'CategoryController');
+    Route::resource('budgets', 'BudgetController');
 });
 
 Auth::routes();

@@ -9,6 +9,7 @@ class Budget extends Model
     protected $fillable = [
         'name',
         'amount',
+        'category_id',
     ];
 
     public function category()

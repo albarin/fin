@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('categories.index', [
-            'categories' => Auth::user()->categories
+            'categories' => Auth::user()->categories,
         ]);
     }
 
