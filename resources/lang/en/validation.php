@@ -98,8 +98,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'color' => [
+            'hex_color' => 'The :attribute field must be an hexadecimal color.',
         ],
     ],
 

@@ -7,11 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ImportController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function import()
     {
         return view('import.form');

@@ -62,7 +62,7 @@ class AccountController extends Controller
     }
 
     /**
-     * @param  \App\Account  $account
+     * @param  \App\Account $account
      * @return \Illuminate\Http\Response
      */
     public function destroy(Account $account)

@@ -15,9 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', 'HomeController@index');
-Route::get('/import', 'ImportController@import');
-Route::post('/upload', 'ImportController@upload');
-Route::resource('accounts', 'AccountController');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/home', 'HomeController@index');
+    Route::get('/import', 'ImportController@import');
+    Route::post('/upload', 'ImportController@upload');
+    Route::resource('accounts', 'AccountController');
+    Route::resource('categories', 'CategoryController');
+});
 
 Auth::routes();

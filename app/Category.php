@@ -8,7 +8,8 @@ class Category extends Model
 {
     protected $fillable = [
         'name',
-        'color'
+        'color',
+        'category_id'
     ];
 
     public function category()
@@ -19,5 +20,10 @@ class Category extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }
