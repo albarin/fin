@@ -27,6 +27,7 @@ class StoreTransaction extends FormRequest
             'name' => 'required',
             'amount' => 'required|numeric|min:0.01',
             'date' => 'required',//|date_format:d/m/Y',
+            'account_id' => 'required',
         ];
     }
 }

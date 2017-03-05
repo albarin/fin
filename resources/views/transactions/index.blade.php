@@ -13,6 +13,7 @@
                     <td>Description</td>
                     <td>Amount</td>
                     <td>Date</td>
+                    <td>Category</td>
                     <td>Actions</td>
                 </tr>
             </thead>
@@ -23,6 +24,7 @@
                         <td>{{ $transaction->description }}</td>
                         <td>{{ $transaction->amount }}€</td>
                         <td>{{ $transaction->date }}</td>
+                        <td>{{ isset($transaction->category_id) ? $transaction->category->name : '' }}</td>
                         <td>
                             <a href="{{ route('transactions.edit', $transaction) }}">Edit</a>
     

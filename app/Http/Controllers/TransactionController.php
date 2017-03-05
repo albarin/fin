@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Account;
+use App\Category;
 use App\Http\Requests\StoreTransaction;
 use App\Transaction;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
@@ -27,6 +27,7 @@ class TransactionController extends Controller
     {
         return view('transactions.create', [
             'accounts' => Account::pluck('name', 'id'),
+            'categories' => Category::pluck('name', 'id'),
         ]);
     }
 
@@ -52,6 +53,7 @@ class TransactionController extends Controller
     {
         return view('transactions.edit', [
             'accounts' => Account::pluck('name', 'id'),
+            'categories' => Category::pluck('name', 'id'),
             'transaction' => $transaction,
         ]);
     }
