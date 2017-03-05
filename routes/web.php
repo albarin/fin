@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('accounts', 'AccountController');
     Route::resource('categories', 'CategoryController');
     Route::resource('budgets', 'BudgetController');
+    Route::resource('transactions', 'TransactionController');
 });
 
 Auth::routes();
