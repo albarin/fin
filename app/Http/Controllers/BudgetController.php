@@ -31,8 +31,6 @@ class BudgetController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @param StoreBudget $request
      * @return \Illuminate\Http\Response
      */
