@@ -1,19 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-xs-3">
-                @include('layouts.menu')
-            </div>
+    <div class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-one-quarter">
+                    @include('layouts.menu')
+                </div>
 
-            <div class="col-md-9 col-xs-9">
-                <div class="panel panel-default">
-                    <div class="panel-heading">@yield('title')</div>
+                <div class="column">
+                    <h3 class="title is-3">@yield('title')</h3>
 
-                    <div class="panel-body">
-                        @yield('main')
-                    </div>
+                    @yield('main')
                 </div>
             </div>
         </div>

@@ -18,6 +18,13 @@ class AccountController extends Controller
         ]);
     }
 
+    public function show(Account $account)
+    {
+        $transactions = $account->transactions()->paginate(20);
+
+        return view('accounts.show', compact('account', 'transactions'));
+    }
+
     /**
      * @return \Illuminate\Http\Response
      */
@@ -37,7 +44,7 @@ class AccountController extends Controller
             ->associate(Auth::user())
             ->save();
 
-        return redirect()->route('accounts.index');
+        return redirect()->route('accounts.show', [$account]);
     }
 
     /**
@@ -68,11 +75,13 @@ class AccountController extends Controller
     public function destroy(Account $account)
     {
         if (!$account->transactions->isEmpty()) {
-            return redirect()->route('accounts.index');
+            return redirect()
+                ->route('accounts.index')
+                ->with('error', 'Cannot delete account with transactions');
         }
 
         $account->delete();
 
-        return redirect()->route('accounts.index');
+        return redirect()->back();
     }
 }

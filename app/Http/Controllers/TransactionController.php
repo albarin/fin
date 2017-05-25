@@ -78,6 +78,6 @@ class TransactionController extends Controller
     {
         $transaction->delete();
 
-        return redirect()->route('transactions.index');
+        return redirect()->back();
     }
 }

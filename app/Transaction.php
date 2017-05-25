@@ -15,6 +15,13 @@ class Transaction extends Model
         'category_id',
     ];
 
+    protected $dates = ['date'];
+
+    public function getFormattedAmountAttribute()
+    {
+        return number_format($this->attributes['amount'], 2);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
