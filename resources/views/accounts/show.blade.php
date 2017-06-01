@@ -89,8 +89,10 @@
                         @endif
                     </td>
                     <td>
-                        {{--<span class="button is-small is-info">Edit</span>--}}
-                        <form action="{{ route('transactions.destroy', ['id' => $transaction->id]) }}" method="post">
+                        <a class="button is-pulled-left is-small is-info" href="{{ route('transactions.edit', [$transaction]) }}">
+                            Edit
+                        </a>
+                        <form style="margin-left: 10px;" class="is-pulled-left" action="{{ route('transactions.destroy', ['id' => $transaction->id]) }}" method="post">
                             {{ csrf_field() }}
                             {{ method_field('delete') }}
                             <button class="button is-small is-danger">Delete</button>

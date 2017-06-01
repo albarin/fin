@@ -1,7 +1,7 @@
 @extends('layouts.logged')
 
 @section('title')
-    Edit account
+    Edit <strong>{{ $account->name }}</strong>
 @endsection
 
 @section('main')

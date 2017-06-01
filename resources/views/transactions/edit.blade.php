@@ -5,8 +5,12 @@
 @endsection
 
 @section('main')
-    <form class="form-horizontal" action="{{ route('transactions.update', $transaction) }}" method="post">
-        {{ method_field('put') }}
-        @include('transactions.form')
-    </form>
+    <div class="columns">
+        <div class="column is-half">
+            <form class="form-horizontal" action="{{ route('transactions.update', $transaction) }}" method="post">
+                {{ method_field('put') }}
+                @include('transactions.form')
+            </form>
+        </div>
+    </div>
 @endsection
