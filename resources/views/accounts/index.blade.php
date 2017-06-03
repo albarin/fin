@@ -25,7 +25,7 @@
             <tbody>
                 @foreach ($accounts as $account)
                     <tr>
-                        <td>{{ $account->name }}</td>
+                        <td><a href="{{ route('accounts.show', [$account]) }}">{{ $account->name }}</a></td>
                         <td>
                             <a class="button is-pulled-left is-small is-info" href="{{ route('accounts.edit', $account) }}">Edit</a>
 

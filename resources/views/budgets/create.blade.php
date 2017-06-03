@@ -1,11 +1,15 @@
 @extends('layouts.logged')
 
 @section('title')
-    Create new budget
+    Add budget
 @endsection
 
 @section('main')
-    <form class="form-horizontal" action="{{ route('budgets.store') }}" method="post">
-        @include('budgets.form')
-    </form>
+    <div class="columns">
+        <div class="column is-half">
+            <form class="form-horizontal" action="{{ route('budgets.store') }}" method="post">
+                @include('budgets.form')
+            </form>
+        </div>
+    </div>
 @endsection

@@ -41,7 +41,8 @@ class BudgetController extends Controller
             ->associate(Auth::user())
             ->save();
 
-        return redirect()->route('budgets.index');
+        return redirect()
+            ->route('budgets.index');
     }
 
     /**

@@ -1,28 +1,28 @@
 {{ csrf_field() }}
 
-<p class="field">
+<div class="field">
     <label for="name" class="label">Name</label>
     <p class="control has-icons-right">
         <input class="input" type="text" id="name" name="name" value="{{ isset($transaction) ? $transaction->name : ''}}">
     </p>
-</p>
+</div>
 
-<p class="field">
+<div class="field">
     <label for="color" class="label">Description</label>
     <p class="control has-icons-right">
         <input class="input" type="text" id="description" name="description" value="{{ isset($transaction) ? $transaction->description : ''}}">
     </p>
-</p>
+</div>
 
-<p class="field">
+<div class="field">
     <label for="amount" class="label">Amount</label>
     <p class="control has-icons-left">
         <input class="input" type="text" id="amount" name="amount" value="{{ isset($transaction) ? $transaction->amount : ''}}">
         <span class="icon is-small is-left">
-          <i class="fa fa-eur"></i>
+            <i class="fa fa-eur"></i>
         </span>
     </p>
-</p>
+</div>
 
 <div class="field">
     <label for="amount_id" class="label">Date</label>
