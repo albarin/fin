@@ -5,7 +5,11 @@
 @endsection
 
 @section('main')
-    <form class="form-horizontal" action="{{ route('tags.store') }}" method="post">
-        @include('tags.form')
-    </form>
+    <div class="columns">
+        <div class="column is-half">
+            <form class="form-horizontal" action="{{ route('tags.store') }}" method="post">
+                @include('tags.form')
+            </form>
+        </div>
+    </div>
 @endsection

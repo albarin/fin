@@ -70,6 +70,12 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
+        if (!$tag->transactions->isEmpty()) {
+            return redirect()
+                ->route('tags.index')
+                ->with('error', 'Cannot delete tags with transactions');
+        }
+
         $tag->delete();
 
         return redirect()->route('tags.index');

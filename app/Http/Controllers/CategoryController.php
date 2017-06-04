@@ -40,7 +40,7 @@ class CategoryController extends Controller
             ->associate(Auth::user())
             ->save();
 
-        return redirect()->route('accounts.index');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -74,7 +74,9 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         if (!$category->transactions->isEmpty()) {
-            return redirect()->route('categories.index');
+            return redirect()
+                ->route('categories.index')
+                ->with('error', 'Cannot delete category with transactions');
         }
 
         $category->delete();
