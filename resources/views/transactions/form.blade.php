@@ -3,59 +3,95 @@
 <div class="field">
     <label for="name" class="label">Name</label>
     <p class="control has-icons-right">
-        <input class="input" type="text" id="name" name="name" value="{{ isset($transaction) ? $transaction->name : ''}}">
+        <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="name" name="name" value="{{ isset($transaction) ? $transaction->name : ''}}">
+
+        @if ($errors->has('name'))
+            <span class="icon is-small is-right">
+                <i class="fa fa-warning"></i>
+            </span>
+            <p class="help is-danger">{{ $errors->first('name') }}</p>
+        @endif
     </p>
 </div>
 
 <div class="field">
-    <label for="color" class="label">Description</label>
+    <label for="description" class="label">Description</label>
     <p class="control has-icons-right">
-        <input class="input" type="text" id="description" name="description" value="{{ isset($transaction) ? $transaction->description : ''}}">
+        <input class="input {{ $errors->has('description') ? 'is-danger' : '' }}" type="text" id="description" name="description" value="{{ isset($transaction) ? $transaction->description : ''}}">
+
+        @if ($errors->has('description'))
+            <span class="icon is-small is-right">
+                <i class="fa fa-warning"></i>
+            </span>
+            <p class="help is-danger">{{ $errors->first('description') }}</p>
+        @endif
     </p>
 </div>
 
 <div class="field">
     <label for="amount" class="label">Amount</label>
-    <p class="control has-icons-left">
-        <input class="input" type="text" id="amount" name="amount" value="{{ isset($transaction) ? $transaction->amount : ''}}">
+    <p class="control has-icons-left has-icons-right">
+        <input class="input {{ $errors->has('amount') ? 'is-danger' : '' }}" type="text" id="amount" name="amount" value="{{ isset($transaction) ? $transaction->amount : ''}}">
         <span class="icon is-small is-left">
             <i class="fa fa-eur"></i>
         </span>
+
+        @if ($errors->has('amount'))
+            <span class="icon is-small is-right">
+                <i class="fa fa-warning"></i>
+            </span>
+            <p class="help is-danger">{{ $errors->first('amount') }}</p>
+        @endif
     </p>
 </div>
 
 <div class="field">
     <label for="amount_id" class="label">Date</label>
     <p class="control has-icons-right">
-        <input class="input" type="text" id="date" name="date" value="{{ isset($transaction) ? $transaction->date : ''}}">
+        <input class="input {{ $errors->has('date') ? 'is-danger' : '' }}" type="text" id="date" name="date" value="{{ isset($transaction) ? $transaction->date : ''}}">
+
+        @if ($errors->has('date'))
+            <span class="icon is-small is-right">
+                <i class="fa fa-warning"></i>
+            </span>
+            <p class="help is-danger">{{ $errors->first('date') }}</p>
+        @endif
     </p>
 </div>
 
 <div class="field">
     <label for="account_id" class="label">Account</label>
-    <p class="control has-icons-right">
-        <span class="select">
-            <select class="form-control" name="account_id" id="account_id">
+    <p class="control">
+        <span class="select {{ $errors->has('account_id') ? 'is-danger' : '' }}">
+            <select class="control" name="account_id" id="account_id">
                 <option value="">- Select account -</option>
                 @foreach ($accounts as $id => $name)
                     <option value="{{ $id }}" {{ isset($transaction) && $id === $transaction->account_id ? 'selected' : '' }}>{{ $name }}</option>
                 @endforeach
             </select>
         </span>
+
+        @if ($errors->has('account_id'))
+            <p class="help is-danger">{{ $errors->first('account_id') }}</p>
+        @endif
     </p>
 </div>
 
 <div class="field">
     <label for="category_id" class="label">Category</label>
-    <p class="control has-icons-right">
-        <span class="select">
-            <select class="form-control" name="category_id" id="category_id">
+    <p class="control">
+        <span class="select {{ $errors->has('category_id') ? 'is-danger' : '' }}">
+            <select class="control" name="category_id" id="category_id">
                 <option value="">- Select category -</option>
                 @foreach ($categories as $id => $name)
                     <option value="{{ $id }}" {{ isset($transaction) && $id === $transaction->category_id ? 'selected' : '' }}>{{ $name }}</option>
                 @endforeach
             </select>
         </span>
+
+        @if ($errors->has('category_id'))
+            <p class="help is-danger">{{ $errors->first('category_id') }}</p>
+        @endif
     </p>
 </div>
 

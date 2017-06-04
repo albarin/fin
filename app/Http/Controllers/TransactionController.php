@@ -67,7 +67,7 @@ class TransactionController extends Controller
     {
         $transaction->update($request->all());
 
-        return redirect()->route('transactions.index');
+        return redirect()->route('accounts.show', [$transaction->account]);
     }
 
     /**

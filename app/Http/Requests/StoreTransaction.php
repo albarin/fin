@@ -25,9 +25,10 @@ class StoreTransaction extends FormRequest
     {
         return [
             'name' => 'required',
-            'amount' => 'required|numeric|min:0.01',
+            'amount' => 'required|numeric',//|min:0.01',
             'date' => 'required',//|date_format:d/m/Y',
             'account_id' => 'required',
+            'category_id' => 'nullable|exists:categories,id',
         ];
     }
 }

@@ -27,7 +27,7 @@
                     <tr>
                         <td><a href="{{ route('accounts.show', [$account]) }}">{{ $account->name }}</a></td>
                         <td>
-                            <a class="button is-pulled-left is-small is-info" href="{{ route('accounts.edit', $account) }}">Edit</a>
+                            <a class="is-centered button is-pulled-left is-small is-info" href="{{ route('accounts.edit', $account) }}">Edit</a>
 
                             <form style="margin-left: 10px;" class="is-pulled-left" action="{{ route('accounts.destroy', $account) }}" method="post">
                                 {{ csrf_field() }}

@@ -8,8 +8,12 @@
     <form action="/upload" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
 
-        <input type="file" name="document">
+        <p class="field">
+            <input type="file" name="document">
+        </p>
 
-        <button type="submit">Upload</button>
+        <p class="control">
+            <button type="submit" class="button is-primary">Save</button>
+        </p>
     </form>
 @endsection

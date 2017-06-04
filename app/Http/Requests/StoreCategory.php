@@ -22,6 +22,7 @@ class StoreCategory extends FormRequest
         return [
             'name' => 'required',
             'color' => 'required|hex_color',
+            'category_id' => 'nullable|exists:categories,id',
         ];
     }
 }
