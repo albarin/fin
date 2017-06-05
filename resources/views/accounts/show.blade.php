@@ -37,7 +37,7 @@
             </p>
 
             <p style="margin-left: 20px">
-                <a class="button is-info">Filter</a>
+                <a class="button is-primary">Filter</a>
                 <a style="margin-left: 5px" class="button">Reset</a>
             </p>
         </div>
@@ -63,7 +63,7 @@
                 <tr>
                     <td>{{ $transaction->date->format('d-m-Y') }}</td>
                     <td>
-                        {{ $transaction->name }}
+                        <strong>{{ $transaction->name }}</strong>
                         @if ($transaction->tags->isNotEmpty())
                             <p style="font-size: 13px">
                                 <strong>
@@ -72,18 +72,12 @@
                             </p>
                         @endif
                     </td>
-                    <td style="text-align: right; position: relative; right: 50px;">
-                        @if ($transaction->amount > 0)
-                            <strong>
-                                {{ $transaction->formattedAmount }}&euro;
-                            </strong>
-                            @else
-                            {{ $transaction->formattedAmount }}&euro;
-                        @endif
+                    <td style="text-align: right; position: relative; right: 50px; color: {{ $transaction->color }}">
+                        {{ $transaction->formattedAmount }}&euro;
                     </td>
                     <td>
                         @if ($transaction->category)
-                            <span class="tag" style="background-color: #{{ $transaction->category->color }}">
+                            <span class="tag" style="background-color: {{ $transaction->category->color }}; color: white;">
                                 {{ $transaction->category->name }}
                             </span>
                         @endif

@@ -22,6 +22,13 @@ class Transaction extends Model
         return number_format($this->attributes['amount'], 2);
     }
 
+    public function getColorAttribute()
+    {
+        return $this->attributes['amount'] < 0
+            ? 'darkred'
+            : 'green';
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -14,9 +14,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('categories.index', [
-            'categories' => Auth::user()->categories,
-        ]);
+        $categories = Auth::user()
+            ->categories()
+            ->where('category_id', '=', null)
+            ->get();
+
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -25,7 +28,7 @@ class CategoryController extends Controller
     public function create()
     {
         return view('categories.create', [
-            'categories' => Category::pluck('name', 'id'),
+            'categories' => Category::where('category_id', '=', null)->get(),
         ]);
     }
 
@@ -51,7 +54,7 @@ class CategoryController extends Controller
     {
         return view('categories.edit', [
             'category' => $category,
-            'categories' => Category::pluck('name', 'id'),
+            'categories' => Category::where('category_id', '=', null)->get(),
         ]);
     }
 
@@ -77,6 +80,18 @@ class CategoryController extends Controller
             return redirect()
                 ->route('categories.index')
                 ->with('error', 'Cannot delete category with transactions');
+        }
+
+        if (!$category->budget->isEmpty()) {
+            return redirect()
+                ->route('categories.index')
+                ->with('error', 'Cannot delete category with an associated budget');
+        }
+
+        if (!$category->children->isEmpty()) {
+            return redirect()
+                ->route('categories.index')
+                ->with('error', 'Cannot delete category with child categories');
         }
 
         $category->delete();

@@ -37,5 +37,9 @@
                 @endforeach
             </tbody>
         </table>
+    @else
+        <div class="notification">
+            No tags defined
+        </div>
     @endif
 @endsection

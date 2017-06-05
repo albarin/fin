@@ -17,6 +17,11 @@ class Category extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function children()
+    {
+        return $this->hasMany(Category::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -25,5 +30,10 @@ class Category extends Model
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function budget()
+    {
+        return $this->hasMany(Budget::class);
     }
 }

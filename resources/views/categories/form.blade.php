@@ -34,9 +34,13 @@
         <span class="select {{ $errors->has('category_id') ? 'is-danger' : '' }}">
             <select class="control" name="category_id" id="category_id">
                 <option value="">- Select category -</option>
-                <option value="123">caasdfca</option>
-                @foreach ($categories as $id => $name)
-                    <option value="{{ $id }}" {{ isset($category) && $id === $category->category_id ? 'selected' : '' }}>{{ $name }}</option>
+                @foreach ($categories as $cat)
+                    <option value="{{ $cat->id }}" {{ isset($category) && $category->category_id === $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                    @if ($cat->children->isEmpty())
+                        @foreach ($cat->children as $child)
+                            <option value="{{ $child->id }}" {{ isset($category) && $category->category_id === $child->id ? 'selected' : '' }}>-- {{ $child->name }}</option>
+                        @endforeach
+                    @endif
                 @endforeach
             </select>
         </span>

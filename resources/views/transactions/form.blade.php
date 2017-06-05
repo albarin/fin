@@ -31,7 +31,7 @@
 <div class="field">
     <label for="amount" class="label">Amount</label>
     <p class="control has-icons-left has-icons-right">
-        <input class="input {{ $errors->has('amount') ? 'is-danger' : '' }}" type="text" id="amount" name="amount" value="{{ isset($transaction) ? $transaction->amount : ''}}">
+        <input class="input {{ $errors->has('amount') ? 'is-danger' : '' }}" type="text" id="amount" name="amount" value="{{ isset($transaction) ? $transaction->formatted_amount : ''}}">
         <span class="icon is-small is-left">
             <i class="fa fa-eur"></i>
         </span>
@@ -83,8 +83,11 @@
         <span class="select {{ $errors->has('category_id') ? 'is-danger' : '' }}">
             <select class="control" name="category_id" id="category_id">
                 <option value="">- Select category -</option>
-                @foreach ($categories as $id => $name)
-                    <option value="{{ $id }}" {{ isset($transaction) && $id === $transaction->category_id ? 'selected' : '' }}>{{ $name }}</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ isset($transaction) && $category->id === $transaction->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
+                    @foreach ($category->children as $child)
+                        <option value="{{ $child->id }}" {{ isset($transaction) && $child->id === $transaction->category_id ? 'selected' : '' }}> -- {{ $child->name }}</option>
+                    @endforeach
                 @endforeach
             </select>
         </span>
