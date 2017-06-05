@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.css">
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.min.js"></script>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -29,6 +30,6 @@
 </div>
 
 <!-- Scripts -->
-<script src="{{ asset('js/app.js') }}"></script>
+{{--<script src="{{ asset('js/app.js') }}"></script>--}}
 </body>
 </html>

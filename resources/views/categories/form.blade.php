@@ -17,7 +17,7 @@
 <div class="field">
     <label for="color" class="label">Color</label>
     <p class="control has-icons-right">
-        <input class="input {{ $errors->has('color') ? 'is-danger' : '' }}" type="text" id="color" name="color" value="{{ isset($category) ? $category->color : ''}}">
+        <input class="input jscolor {hash:true} {{ $errors->has('color') ? 'is-danger' : '' }}" type="text" id="color" name="color" value="{{ isset($category) ? $category->color : ''}}">
 
         @if ($errors->has('color'))
             <span class="icon is-small is-right">
@@ -53,4 +53,5 @@
 
 <p class="control">
     <button type="submit" class="button is-primary">Save</button>
+    <a class="button is-primary is-inverted" href="{{ route('categories.index') }}">Cancel</a>
 </p>
