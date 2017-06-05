@@ -9,40 +9,7 @@
 @endsection
 
 @section('main')
-    <nav class="level">
-        <div class="level-right">
-            <span style="margin-right: 5px" class="icon">
-                <i class="fa fa-calendar"></i>
-            </span>
-            <p class="control">
-                <span class="select">
-                    <select>
-                        <option>Select month...</option>
-                        <option>Mayo 2017</option>
-                    </select>
-                </span>
-            </p>
-
-            <span style="margin-right: 5px; margin-left: 20px" class="icon">
-                <i class="fa fa-tag"></i>
-            </span>
-            <p class="control">
-                <span class="select">
-                    <select>
-                        <option>Select category...</option>
-                        <option>Compra</option>
-                        <option>Extra</option>
-                        <option>Ocio</option>
-                    </select>
-                </span>
-            </p>
-
-            <p style="margin-left: 20px">
-                <a class="button is-primary">Filter</a>
-                <a style="margin-left: 5px" class="button">Reset</a>
-            </p>
-        </div>
-    </nav>
+    @include('accounts.filters')
 
     @if ($transactions->isEmpty())
         <div class="notification">

@@ -338,7 +338,7 @@ return array(
         ]
     ],
 
-    'filters'    => [
+    'TransactionFilters' => [
         /*
         |--------------------------------------------------------------------------
         | Register read filters

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Account;
+use App\Category;
+use App\Filters\TransactionFilters;
 use App\Http\Requests\StoreAccount;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,14 +20,21 @@ class AccountController extends Controller
         ]);
     }
 
-    public function show(Account $account)
+    public function show(Account $account, TransactionFilters $filters)
     {
         $transactions = $account
             ->transactions()
+            ->filter($filters)
             ->orderBy('date', 'desc')
             ->paginate(20);
 
-        return view('accounts.show', compact('account', 'transactions'));
+        $categories = Category::parents()->get();
+//        $transactions = $account
+//            ->transactions()
+//            ->orderBy('date', 'desc')
+//            ->paginate(20);
+
+        return view('accounts.show', compact('account', 'transactions', 'categories'));
     }
 
     /**

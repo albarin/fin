@@ -66,7 +66,7 @@
             <select class="control" name="account_id" id="account_id">
                 <option value="">- Select account -</option>
                 @foreach ($accounts as $id => $name)
-                    <option value="{{ $id }}" {{ $selectedAccountId == $id || (isset($transaction) && $id === $transaction->account_id) ? 'selected' : '' }}>{{ $name }}</option>
+                    <option value="{{ $id }}" {{ isset($selectedAccountId) && $selectedAccountId == $id || (isset($transaction) && $id === $transaction->account_id) ? 'selected' : '' }}>{{ $name }}</option>
                 @endforeach
             </select>
         </span>
