@@ -2,8 +2,9 @@
 
 @section('title')
     {{ $account->name }}
-    <a class="button is-pulled-right is-primary is-inverted" href="{{ route('accounts.create') }}">
-        Add account
+    <a class="button is-pulled-right is-primary is-inverted"
+       href="{{ route('transactions.create', ['account_id' => $account->id]) }}">
+        Add transaction
     </a>
 @endsection
 
@@ -61,7 +62,7 @@
             <tbody>
             @foreach ($transactions as $transaction)
                 <tr>
-                    <td>{{ $transaction->date->format('d-m-Y') }}</td>
+                    <td>{{ $transaction->date }}</td>
                     <td>
                         <strong>{{ $transaction->name }}</strong>
                         @if ($transaction->tags->isNotEmpty())

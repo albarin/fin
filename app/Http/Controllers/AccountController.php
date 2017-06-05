@@ -20,7 +20,10 @@ class AccountController extends Controller
 
     public function show(Account $account)
     {
-        $transactions = $account->transactions()->paginate(20);
+        $transactions = $account
+            ->transactions()
+            ->orderBy('date', 'desc')
+            ->paginate(20);
 
         return view('accounts.show', compact('account', 'transactions'));
     }

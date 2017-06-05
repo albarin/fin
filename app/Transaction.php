@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
@@ -16,6 +17,16 @@ class Transaction extends Model
     ];
 
     protected $dates = ['date'];
+
+    public function getDateAttribute($date)
+    {
+        return date('d/m/Y', strtotime($date));
+    }
+
+    public function setDateAttribute($date)
+    {
+        $this->attributes['date'] = Carbon::createFromFormat('d/m/Y', $date)->startOfDay();
+    }
 
     public function getFormattedAmountAttribute()
     {

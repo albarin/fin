@@ -17,4 +17,5 @@
 
 <p class="control">
     <button type="submit" class="button is-primary">Save</button>
+    <a class="button is-primary is-inverted" href="{{ route('accounts.index') }}">Cancel</a>
 </p>

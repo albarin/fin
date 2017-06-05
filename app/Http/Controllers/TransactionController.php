@@ -6,6 +6,7 @@ use App\Account;
 use App\Category;
 use App\Http\Requests\StoreTransaction;
 use App\Transaction;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
@@ -21,11 +22,13 @@ class TransactionController extends Controller
     }
 
     /**
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         return view('transactions.create', [
+            'selectedAccountId' => $request->get('account_id'),
             'accounts' => Account::pluck('name', 'id'),
             'categories' => Category::parents()->get(),
         ]);
@@ -42,7 +45,7 @@ class TransactionController extends Controller
             ->associate(Auth::user())
             ->save();
 
-        return redirect()->route('transactions.index');
+        return redirect()->route('accounts.show', [$transaction->account]);
     }
 
     /**
