@@ -64,6 +64,6 @@
             @endforeach
             </tbody>
         </table>
-        {{ $transactions->links() }}
+        {{ $transactions->appends(request()->all())->links() }}
     @endif
 @endsection

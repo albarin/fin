@@ -6,6 +6,8 @@ use App\Account;
 use App\Category;
 use App\Filters\TransactionFilters;
 use App\Http\Requests\StoreAccount;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
@@ -20,7 +22,7 @@ class AccountController extends Controller
         ]);
     }
 
-    public function show(Account $account, TransactionFilters $filters)
+    public function show(Request $request, Account $account, TransactionFilters $filters)
     {
         $transactions = $account
             ->transactions()
@@ -29,12 +31,23 @@ class AccountController extends Controller
             ->paginate(20);
 
         $categories = Category::parents()->get();
-//        $transactions = $account
-//            ->transactions()
-//            ->orderBy('date', 'desc')
-//            ->paginate(20);
 
-        return view('accounts.show', compact('account', 'transactions', 'categories'));
+        if ($dateRange = $request->get('daterange')) {
+            $dateRange = explode(' - ', $dateRange);
+        }
+
+        return view('accounts.show', [
+            'account' => $account,
+            'transactions' => $transactions,
+            'categories' => $categories,
+            'startDate' => isset($dateRange[0])
+                ? $dateRange[0]
+                : Carbon::today()->firstOfMonth()->format('d/m/Y'),
+            'endDate' => isset($dateRange[1])
+                ? $dateRange[1]
+                : Carbon::today()->endOfMonth()->format('d/m/Y'),
+            'selectedCategoryId' => $request->get('category_id'),
+        ]);
     }
 
     /**
