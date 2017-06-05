@@ -63,7 +63,7 @@ class ProcessTransactionsDocument implements ShouldQueue
             'name' => $line[0],
             'description' => $line[3],
             'amount' => str_replace(',', '', $line[4]),
-            'date' => Carbon::createFromFormat('d/m/Y', $line[1]),
+            'date' => $line[1],
         ];
     }
 

@@ -18,6 +18,6 @@
         <li><a href="{{ url('/categories') }}">Categories</a></li>
         <li><a href="{{ url('/budgets') }}">Budgets</a></li>
         <li><a href="{{ url('/tags') }}">Tags</a></li>
-        <li><a href="{{ url('/import') }}">Import</a></li>
+        <li><a href="{{ url('/import') }}">Import transactions</a></li>
     </ul>
 </aside>

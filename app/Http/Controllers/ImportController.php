@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
+use App\Http\Requests\ImportTransactions;
 use App\Jobs\ProcessTransactionsDocument;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,21 +11,24 @@ class ImportController extends Controller
 {
     public function import()
     {
-        return view('import.form');
+        $accounts = Auth::user()->accounts;
+
+        return view('import.form', compact('accounts'));
     }
 
-    public function upload()
+    public function upload(ImportTransactions $request)
     {
-        $file = request()->file('document');
+        $file = $request->file('document');
         $file->store('documents');
+        $accountId = $request->get('account_id');
 
         dispatch(
             new ProcessTransactionsDocument(
                 $file->hashName(),
-                Auth::user()->accounts->first()->id
+                $accountId
             )
         );
 
-        return back();
+        return redirect()->route('accounts.show', ['account_id' => $accountId]);
     }
 }
