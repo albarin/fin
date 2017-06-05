@@ -16,6 +16,7 @@
 
 <div class="field">
     <button type="submit" class="button is-primary">Save</button>
+    <a class="button is-primary is-inverted" href="{{ route('tags.index') }}">Cancel</a>
 </div>
 
 

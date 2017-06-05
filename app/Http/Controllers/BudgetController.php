@@ -26,7 +26,7 @@ class BudgetController extends Controller
     public function create()
     {
         return view('budgets.create', [
-            'categories' => Category::pluck('name', 'id'),
+            'categories' => Category::parents()->get(),
         ]);
     }
 
@@ -53,7 +53,7 @@ class BudgetController extends Controller
     {
         return view('budgets.edit', [
             'budget' => $budget,
-            'categories' => Category::pluck('name', 'id'),
+            'categories' => Category::parents()->get(),
         ]);
     }
 

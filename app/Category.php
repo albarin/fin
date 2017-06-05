@@ -12,6 +12,11 @@ class Category extends Model
         'category_id'
     ];
 
+    public function scopeParents($query)
+    {
+        return $query->where('category_id', '=', null)->orderBy('name');
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

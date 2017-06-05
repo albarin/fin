@@ -36,11 +36,6 @@
                 <option value="">- Select category -</option>
                 @foreach ($categories as $cat)
                     <option value="{{ $cat->id }}" {{ isset($category) && $category->category_id === $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
-                    @if ($cat->children->isEmpty())
-                        @foreach ($cat->children as $child)
-                            <option value="{{ $child->id }}" {{ isset($category) && $category->category_id === $child->id ? 'selected' : '' }}>-- {{ $child->name }}</option>
-                        @endforeach
-                    @endif
                 @endforeach
             </select>
         </span>

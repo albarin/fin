@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {
         $categories = Auth::user()
             ->categories()
-            ->where('category_id', '=', null)
+            ->parents()
             ->get();
 
         return view('categories.index', compact('categories'));
@@ -28,7 +28,7 @@ class CategoryController extends Controller
     public function create()
     {
         return view('categories.create', [
-            'categories' => Category::where('category_id', '=', null)->get(),
+            'categories' => Category::parents()->get(),
         ]);
     }
 
@@ -54,7 +54,7 @@ class CategoryController extends Controller
     {
         return view('categories.edit', [
             'category' => $category,
-            'categories' => Category::where('category_id', '=', null)->get(),
+            'categories' => Category::parents()->get(),
         ]);
     }
 

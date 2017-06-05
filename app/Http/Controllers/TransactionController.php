@@ -27,7 +27,7 @@ class TransactionController extends Controller
     {
         return view('transactions.create', [
             'accounts' => Account::pluck('name', 'id'),
-            'categories' => Category::where('category_id', '=', null)->get(),
+            'categories' => Category::parents()->get(),
         ]);
     }
 
@@ -53,7 +53,7 @@ class TransactionController extends Controller
     {
         return view('transactions.edit', [
             'accounts' => Account::pluck('name', 'id'),
-            'categories' => Category::where('category_id', '=', null)->get(),
+            'categories' => Category::parents()->get(),
             'transaction' => $transaction,
         ]);
     }

@@ -37,8 +37,13 @@
         <span class="select {{ $errors->has('category_id') ? 'is-danger' : '' }}">
             <select class="control" name="category_id" id="category_id">
                 <option value="">- Select category -</option>
-                @foreach ($categories as $id => $name)
-                    <option value="{{ $id }}" {{ isset($budget) && $id === $budget->category_id ? 'selected' : '' }}>{{ $name }}</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ isset($budget) && $category->id === $budget->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
+                    @if (!$category->children->isEmpty())
+                        @foreach ($category->children as $child)
+                            <option value="{{ $child->id }}" {{ isset($budget) && $budget->category_id === $child->id ? 'selected' : '' }}>-- {{ $child->name }}</option>
+                        @endforeach
+                    @endif
                 @endforeach
             </select>
         </span>
@@ -51,4 +56,5 @@
 
 <p class="control">
     <button type="submit" class="button is-primary">Save</button>
+    <a class="button is-primary is-inverted" href="{{ route('budgets.index') }}">Cancel</a>
 </p>
