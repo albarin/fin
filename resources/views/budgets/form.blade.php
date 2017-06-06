@@ -1,7 +1,7 @@
 {{ csrf_field() }}
 
 <div class="field">
-    <label for="name" class="label">Name</label>
+    <label for="name">Name</label>
     <p class="control has-icons-right">
         <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="name" name="name" value="{{ isset($budget) ? $budget->name : ''}}">
 
@@ -15,7 +15,7 @@
 </div>
 
 <div class="field">
-    <label for="amount" class="label">Amount</label>
+    <label for="amount">Amount</label>
     <p class="control has-icons-left has-icons-right">
         <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="amount" name="amount" value="{{ isset($budget) ? $budget->amount : ''}}">
         <span class="icon is-small is-left">
@@ -32,7 +32,7 @@
 </div>
 
 <div class="field">
-    <label for="category_id" class="label">Category</label>
+    <label for="category_id">Category</label>
     <p class="control">
         <span class="select {{ $errors->has('category_id') ? 'is-danger' : '' }}">
             <select class="control" name="category_id" id="category_id">

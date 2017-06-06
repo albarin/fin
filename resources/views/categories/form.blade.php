@@ -1,7 +1,7 @@
 {{ csrf_field() }}
 
 <div class="field">
-    <label for="name" class="label">Name</label>
+    <label for="name">Name</label>
     <p class="control has-icons-right">
         <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="name" name="name" value="{{ isset($category) ? $category->name : ''}}">
 
@@ -15,7 +15,7 @@
 </div>
 
 <div class="field">
-    <label for="color" class="label">Color</label>
+    <label for="color">Color</label>
     <p class="control has-icons-right">
         <input class="input jscolor {hash:true} {{ $errors->has('color') ? 'is-danger' : '' }}" type="text" id="color" name="color" value="{{ isset($category) ? $category->color : ''}}">
 
@@ -29,7 +29,7 @@
 </div>
 
 <div class="field">
-    <label for="category_id" class="label">Parent category</label>
+    <label for="category_id">Parent category</label>
     <p class="control has-icons-right">
         <span class="select {{ $errors->has('category_id') ? 'is-danger' : '' }}">
             <select class="control" name="category_id" id="category_id">

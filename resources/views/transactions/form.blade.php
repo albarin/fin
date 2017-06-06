@@ -60,7 +60,7 @@
 </div>
 
 <div class="field">
-    <label for="account_id" class="label">Account</label>
+    <label for="account_id">Account</label>
     <p class="control">
         <span class="select {{ $errors->has('account_id') ? 'is-danger' : '' }}">
             <select class="control" name="account_id" id="account_id">
@@ -78,7 +78,7 @@
 </div>
 
 <div class="field">
-    <label for="category_id" class="label">Category</label>
+    <label for="category_id">Category</label>
     <p class="control">
         <span class="select {{ $errors->has('category_id') ? 'is-danger' : '' }}">
             <select class="control" name="category_id" id="category_id">

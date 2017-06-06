@@ -11,7 +11,7 @@
                 {{ csrf_field() }}
 
                 <p class="field">
-                    <label for="document" class="label">File</label>
+                    <label for="document">File</label>
                     <input type="file" name="document">
                     @if ($errors->has('document'))
                         <p class="help is-danger">{{ $errors->first('document') }}</p>
@@ -20,7 +20,7 @@
 
 
                 <div class="field">
-                    <label for="account_id" class="label">Account</label>
+                    <label for="account_id">Account</label>
                     <p class="control">
                         <span class="select {{ $errors->has('account_id') ? 'is-danger' : '' }}">
                             <select class="control" name="account_id" id="account_id">

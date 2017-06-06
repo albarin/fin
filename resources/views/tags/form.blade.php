@@ -1,7 +1,7 @@
 {{ csrf_field() }}
 
 <div class="field">
-    <label for="name" class="label">Name</label>
+    <label for="name">Name</label>
     <p class="control has-icons-right">
         <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="name" name="name" value="{{ isset($tag) ? $tag->name : ''}}">
 

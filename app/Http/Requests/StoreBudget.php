@@ -25,7 +25,7 @@ class StoreBudget extends FormRequest
     {
         return [
             'name' => 'required',
-            'amount' => 'required|numeric',
+            'amount' => 'required|numeric|min:1',
             'category_id' => 'required|exists:categories,id',
         ];
     }
