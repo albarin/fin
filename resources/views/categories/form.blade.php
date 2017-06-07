@@ -3,7 +3,7 @@
 <div class="field">
     <label for="name">Name</label>
     <p class="control has-icons-right">
-        <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="name" name="name" value="{{ isset($category) ? $category->name : ''}}">
+        <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="name" name="name" value="{{ isset($category) ? $category->name : old('name') }}">
 
         @if ($errors->has('name'))
             <span class="icon is-small is-right">
@@ -17,7 +17,7 @@
 <div class="field">
     <label for="color">Color</label>
     <p class="control has-icons-right">
-        <input class="input jscolor {hash:true} {{ $errors->has('color') ? 'is-danger' : '' }}" type="text" id="color" name="color" value="{{ isset($category) ? $category->color : ''}}">
+        <input class="input jscolor {hash:true} {{ $errors->has('color') ? 'is-danger' : '' }}" type="text" id="color" name="color" value="{{ isset($category) ? $category->color : old('color') }}">
 
         @if ($errors->has('color'))
             <span class="icon is-small is-right">

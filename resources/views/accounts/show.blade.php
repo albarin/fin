@@ -2,6 +2,7 @@
 
 @section('title')
     {{ $account->name }}
+    <span style="vertical-align: middle" class="subtitle">{{ $balance }}&euro;</span>
     <a class="button is-pulled-right is-primary is-inverted"
        href="{{ route('transactions.create', ['account_id' => $account->id]) }}">
         Add transaction
@@ -21,8 +22,8 @@
             <tr>
                 <th>Date</th>
                 <th>Name</th>
-                <th>Value</th>
                 <th>Category</th>
+                <th>Value</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -40,15 +41,15 @@
                             </p>
                         @endif
                     </td>
-                    <td style="text-align: right; position: relative; right: 50px; color: {{ $transaction->color }}">
-                        {{ $transaction->formattedAmount }}&euro;
-                    </td>
                     <td>
                         @if ($transaction->category)
                             <span class="tag" style="background-color: {{ $transaction->category->color }}; color: white;">
                                 {{ $transaction->category->name }}
                             </span>
                         @endif
+                    </td>
+                    <td style="color: {{ $transaction->color }}">
+                        {{ $transaction->formattedAmount }}&euro;
                     </td>
                     <td>
                         <a class="button is-pulled-left is-small is-info" href="{{ route('transactions.edit', [$transaction]) }}">

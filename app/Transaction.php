@@ -40,9 +40,16 @@ class Transaction extends Model
             : 'green';
     }
 
-    public function scopeFilter($query, $filters)
+    public function scopeFilter($query, $startDate, $endDate, $categoryId)
     {
-        return $filters->apply($query);
+        $query->where('date', '>=', $startDate)
+            ->where('date', '<=', $endDate);
+
+        if (!empty($categoryId)) {
+            $query->whereIn('category_id', $this->getSubcategories($categoryId));
+        }
+
+        return $query->orderBy('date', 'desc');
     }
 
     public function user()
@@ -68,5 +75,16 @@ class Transaction extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    private function getSubcategories($categoryId)
+    {
+        $subcategories = Category::where('category_id', $categoryId)
+            ->pluck('id')
+            ->toArray();
+
+        $subcategories[] = $categoryId;
+
+        return $subcategories;
     }
 }

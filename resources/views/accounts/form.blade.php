@@ -4,7 +4,7 @@
     <label for="name">Name</label>
     <p class="control has-icons-right">
         <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="name" name="name"
-               value="{{ isset($account) ? $account->name : ''}}">
+               value="{{ isset($account) ? $account->name : old('name') }}">
 
         @if ($errors->has('name'))
             <span class="icon is-small is-right">

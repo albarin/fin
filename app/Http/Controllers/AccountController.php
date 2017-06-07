@@ -4,14 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Category;
-use App\Filters\TransactionFilters;
 use App\Http\Requests\StoreAccount;
+use App\Money\Balance;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
+    private $balance;
+
+    public function __construct(Balance $balance)
+    {
+        $this->balance = $balance;
+    }
+
     /**
      * @return \Illuminate\Http\Response
      */
@@ -22,31 +29,36 @@ class AccountController extends Controller
         ]);
     }
 
-    public function show(Request $request, Account $account, TransactionFilters $filters)
+    public function show(Request $request, Account $account)
     {
-        $transactions = $account
-            ->transactions()
-            ->filter($filters)
-            ->orderBy('date', 'desc')
-            ->paginate(20);
-
         $categories = Category::parents()->get();
 
         if ($dateRange = $request->get('daterange')) {
             $dateRange = explode(' - ', $dateRange);
         }
 
+        $startDate = isset($dateRange[0])
+            ? Carbon::createFromFormat('d/m/Y', $dateRange[0])->startOfDay()
+            : Carbon::today()->firstOfMonth();
+
+        $endDate = isset($dateRange[1])
+            ? Carbon::createFromFormat('d/m/Y', $dateRange[1])->startOfDay()
+            : Carbon::today()->endOfMonth();
+
+        $transactions = $account
+            ->transactions()
+            ->filter($startDate, $endDate, $request->get('category_id'))
+            ->orderBy('date', 'desc')
+            ->paginate(20);
+
         return view('accounts.show', [
             'account' => $account,
             'transactions' => $transactions,
             'categories' => $categories,
-            'startDate' => isset($dateRange[0])
-                ? $dateRange[0]
-                : Carbon::today()->firstOfMonth()->format('d/m/Y'),
-            'endDate' => isset($dateRange[1])
-                ? $dateRange[1]
-                : Carbon::today()->endOfMonth()->format('d/m/Y'),
+            'startDate' => $startDate->format('d/m/Y'),
+            'endDate' => $endDate->format('d/m/Y'),
             'selectedCategoryId' => $request->get('category_id'),
+            'balance' => $this->balance->currentBalance($account->id),
         ]);
     }
 

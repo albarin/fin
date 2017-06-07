@@ -3,7 +3,7 @@
 <div class="field">
     <label for="name">Name</label>
     <p class="control has-icons-right">
-        <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="name" name="name" value="{{ isset($budget) ? $budget->name : ''}}">
+        <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="name" name="name" value="{{ isset($budget) ? $budget->name : old('color') }}">
 
         @if ($errors->has('name'))
             <span class="icon is-small is-right">
@@ -17,7 +17,7 @@
 <div class="field">
     <label for="amount">Amount</label>
     <p class="control has-icons-left has-icons-right">
-        <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="amount" name="amount" value="{{ isset($budget) ? $budget->amount : ''}}">
+        <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="amount" name="amount" value="{{ isset($budget) ? $budget->amount : old('color') }}">
         <span class="icon is-small is-left">
             <i class="fa fa-eur"></i>
         </span>

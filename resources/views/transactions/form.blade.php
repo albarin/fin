@@ -1,9 +1,9 @@
 {{ csrf_field() }}
 
 <div class="field">
-    <label for="name" class="label">Name</label>
+    <label for="name">Name</label>
     <p class="control has-icons-right">
-        <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="name" name="name" value="{{ isset($transaction) ? $transaction->name : ''}}">
+        <input class="input {{ $errors->has('name') ? 'is-danger' : '' }}" type="text" id="name" name="name" value="{{ isset($transaction) ? $transaction->name : old('name') }}">
 
         @if ($errors->has('name'))
             <span class="icon is-small is-right">
@@ -15,9 +15,9 @@
 </div>
 
 <div class="field">
-    <label for="description" class="label">Description</label>
+    <label for="description">Description</label>
     <p class="control has-icons-right">
-        <input class="input {{ $errors->has('description') ? 'is-danger' : '' }}" type="text" id="description" name="description" value="{{ isset($transaction) ? $transaction->description : ''}}">
+        <input class="input {{ $errors->has('description') ? 'is-danger' : '' }}" type="text" id="description" name="description" value="{{ isset($transaction) ? $transaction->description : old('description') }}">
 
         @if ($errors->has('description'))
             <span class="icon is-small is-right">
@@ -29,9 +29,9 @@
 </div>
 
 <div class="field">
-    <label for="amount" class="label">Amount</label>
+    <label for="amount">Amount</label>
     <p class="control has-icons-left has-icons-right">
-        <input class="input {{ $errors->has('amount') ? 'is-danger' : '' }}" type="text" id="amount" name="amount" value="{{ isset($transaction) ? $transaction->formatted_amount : ''}}">
+        <input class="input {{ $errors->has('amount') ? 'is-danger' : '' }}" type="text" id="amount" name="amount" value="{{ isset($transaction) ? $transaction->formatted_amount : old('amount') }}">
         <span class="icon is-small is-left">
             <i class="fa fa-eur"></i>
         </span>
@@ -46,9 +46,9 @@
 </div>
 
 <div class="field">
-    <label for="amount_id" class="label">Date</label>
+    <label for="amount_id">Date</label>
     <p class="control has-icons-right">
-        <input class="input {{ $errors->has('date') ? 'is-danger' : '' }}" type="text" id="date" name="date" value="{{ isset($transaction) ? $transaction->date : ''}}">
+        <input class="input {{ $errors->has('date') ? 'is-danger' : '' }}" type="text" id="date" name="date" value="{{ isset($transaction) ? $transaction->date : old('date') }}">
 
         @if ($errors->has('date'))
             <span class="icon is-small is-right">
