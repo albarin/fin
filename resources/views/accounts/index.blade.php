@@ -19,6 +19,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Initial balance</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -26,6 +27,7 @@
                 @foreach ($accounts as $account)
                     <tr>
                         <td><a href="{{ route('accounts.show', [$account]) }}">{{ $account->name }}</a></td>
+                        <td>{{ $account->formatted_balance }}&euro;</td>
                         <td>
                             <a class="is-centered button is-pulled-left is-small is-info" href="{{ route('accounts.edit', $account) }}">Edit</a>
 

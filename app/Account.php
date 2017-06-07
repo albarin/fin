@@ -8,7 +8,13 @@ class Account extends Model
 {
     protected $fillable = [
         'name',
+        'initial_balance',
     ];
+
+    public function getFormattedBalanceAttribute()
+    {
+        return number_format($this->attributes['initial_balance'], 2, '.', '');
+    }
 
     public function transactions()
     {

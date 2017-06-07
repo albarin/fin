@@ -2,21 +2,12 @@
 
 namespace App\Money;
 
+use App\Account;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class Balance
 {
-    /**
-     * @var int
-     */
-    private $initialBalance;
-
-    public function __construct($initialBalance)
-    {
-        $this->initialBalance = $initialBalance;
-    }
-
     /**
      * Get current balance in cents
      *
@@ -36,8 +27,7 @@ class Balance
      */
     public function lastMonthBalance($accountId)
     {
-        return $this->initialBalance +
-            $this->balanceUntil(Carbon::today()->subMonth()->endOfDay(), $accountId);
+        return $this->balanceUntil(Carbon::today()->subMonth()->endOfDay(), $accountId);
     }
 
     /**
@@ -65,11 +55,13 @@ class Balance
      */
     private function balanceUntil(\DateTime $date, $accountId)
     {
+        $initialBalance = Account::find($accountId)->initial_balance;
+
         $balance = DB::table('transactions')
             ->where('date', '<=', $date)
             ->where('account_id', $accountId)
             ->sum('amount');
 
-        return $this->initialBalance + $balance;
+        return $initialBalance + $balance;
     }
 }
