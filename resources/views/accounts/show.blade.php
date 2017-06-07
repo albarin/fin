@@ -12,6 +12,35 @@
 @section('main')
     @include('accounts.filters')
 
+    @if ($chart)
+        <canvas id="myChart" height="100"></canvas>
+        <script>
+            var ctx = document.getElementById("myChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {!! json_encode($chart['labels']) !!},
+                    datasets: [{
+                        label: '',
+                        data: {!! json_encode($chart['data']) !!},
+                        backgroundColor: {!! json_encode($chart['colors']) !!},
+                        borderColor: {!! json_encode($chart['colors']) !!},
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        </script>
+    @endif
+
     @if ($transactions->isEmpty())
         <div class="notification">
             No transactions found in the account

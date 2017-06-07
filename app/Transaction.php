@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Transaction extends Model
 {
@@ -50,6 +51,18 @@ class Transaction extends Model
         }
 
         return $query->orderBy('date', 'desc');
+    }
+
+    public function scopeByCategories($query, $startDate, $endDate)
+    {
+        return $query
+            ->select('categories.name', 'categories.color as background', DB::raw('abs(sum(amount)) as total'))
+            ->join('categories', 'categories.id', '=', 'transactions.category_id')
+//            ->where('categories.category_id', null)
+            ->where('date', '>=', $startDate)
+            ->where('date', '<=', $endDate)
+            ->groupBy(DB::raw('transactions.category_id'))
+            ->where('amount', '<', 0);
     }
 
     public function user()

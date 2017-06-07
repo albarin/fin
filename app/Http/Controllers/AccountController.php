@@ -51,6 +51,11 @@ class AccountController extends Controller
             ->orderBy('date', 'desc')
             ->paginate(20);
 
+        $byCategories = $account
+            ->transactions()
+            ->byCategories($startDate, $endDate)
+            ->get();
+
         return view('accounts.show', [
             'account' => $account,
             'transactions' => $transactions,
@@ -59,6 +64,7 @@ class AccountController extends Controller
             'endDate' => $endDate->format('d/m/Y'),
             'selectedCategoryId' => $request->get('category_id'),
             'balance' => $this->balance->currentBalance($account->id),
+            'chart' => $this->getChart($byCategories->toArray()),
         ]);
     }
 
@@ -120,5 +126,24 @@ class AccountController extends Controller
         $account->delete();
 
         return redirect()->back();
+    }
+
+    private function getChart(array $categories)
+    {
+        if (empty($categories)) {
+            return [];
+        }
+
+        foreach ($categories as $category) {
+            $labels[] = $category['name'];
+            $data[] = $category['total'];
+            $colors[] = $category['background'];
+        }
+
+        return [
+            'labels' => $labels,
+            'data' => $data,
+            'colors' => $colors,
+        ];
     }
 }
