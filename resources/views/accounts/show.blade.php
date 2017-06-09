@@ -69,7 +69,7 @@
             </thead>
             <tbody>
             @foreach ($transactions as $transaction)
-                <tr>
+                <tr id="transaction">
                     <td>{{ $transaction->date }}</td>
                     <td>
                         <strong>{{ $transaction->name }}</strong>
@@ -89,7 +89,7 @@
                         @endif
                     </td>
                     <td style="color: {{ $transaction->color }}">
-                        {{ $transaction->formattedAmount }}&euro;
+                        <span class="amount">{{ $transaction->formattedAmount }}</span>&euro;
                     </td>
                     <td>
                         <a class="button is-pulled-left is-small is-info" href="{{ route('transactions.edit', [$transaction]) }}">
@@ -106,5 +106,32 @@
             </tbody>
         </table>
         {{ $transactions->appends(request()->all())->links() }}
+
+        <div class="total-selected is-pulled-right">
+            Total selected:
+            <span class="tag is-medium is-primary">
+                <span class="total">0</span>€
+            </span>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                var sum = 0;
+                $('#transaction td').on('click', function () {
+                    var row = $(this).parent();
+                    $(row).toggleClass('is-selected');
+                    var amount = $(row).find('.amount');
+                    if ($(row).hasClass('is-selected')) {
+                        sum += parseFloat(amount.html());
+                        console.log(sum);
+                        $('.total').html(sum.toFixed(2));
+                    }
+                    else {
+                        sum -= parseFloat(amount.html());
+                        $('.total').html((sum).toFixed(2));
+                    }
+                });
+            });
+        </script>
     @endif
 @endsection
