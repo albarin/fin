@@ -29,6 +29,17 @@
                     }]
                 },
                 options: {
+
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                return data.datasets[tooltipItem.datasetIndex].label + ' ' + (tooltipItem.yLabel).toFixed(2) + '€';
+                            }
+                        }
+                    },
+                    legend: {
+                        display: false
+                    },
                     scales: {
                         yAxes: [{
                             ticks: {

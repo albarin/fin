@@ -6,6 +6,7 @@ use App\Account;
 use App\Category;
 use App\Http\Requests\StoreAccount;
 use App\Money\Balance;
+use App\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,10 +52,7 @@ class AccountController extends Controller
             ->orderBy('date', 'desc')
             ->paginate(20);
 
-        $byCategories = $account
-            ->transactions()
-            ->byCategories($startDate, $endDate)
-            ->get();
+        $byCategories = Transaction::byCategories($startDate, $endDate, $account->id);
 
         return view('accounts.show', [
             'account' => $account,
@@ -64,7 +62,7 @@ class AccountController extends Controller
             'endDate' => $endDate->format('d/m/Y'),
             'selectedCategoryId' => $request->get('category_id'),
             'balance' => $this->balance->currentBalance($account->id),
-            'chart' => $this->getChart($byCategories->toArray()),
+            'chart' => $this->getChart($byCategories),
         ]);
     }
 
@@ -133,11 +131,10 @@ class AccountController extends Controller
         if (empty($categories)) {
             return [];
         }
-
         foreach ($categories as $category) {
-            $labels[] = $category['name'];
-            $data[] = $category['total'];
-            $colors[] = $category['background'];
+            $labels[] = $category->cat_name;
+            $data[] = (float) $category->absolute;
+            $colors[] = $category->color;
         }
 
         return [

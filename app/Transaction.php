@@ -53,16 +53,22 @@ class Transaction extends Model
         return $query->orderBy('date', 'desc');
     }
 
-    public function scopeByCategories($query, $startDate, $endDate)
+    public static function byCategories($startDate, $endDate, $accountId)
     {
-        return $query
-            ->select('categories.name', 'categories.color as background', DB::raw('abs(sum(amount)) as total'))
-            ->join('categories', 'categories.id', '=', 'transactions.category_id')
-//            ->where('categories.category_id', null)
-            ->where('date', '>=', $startDate)
-            ->where('date', '<=', $endDate)
-            ->groupBy(DB::raw('transactions.category_id'))
-            ->where('amount', '<', 0);
+        return DB::select('
+            select 
+                case when c.category_id is null then c.id
+                else c.category_id end as cat_id,
+                (select cc.name from categories as cc where cc.id=cat_id) as cat_name,
+                (select cc.color from categories as cc where cc.id = cat_id) as color,
+                sum(t.amount) as total,
+                abs(sum(t.amount)) as absolute
+            from categories as c
+            left join transactions as t on t.category_id = c.id and t.date >= ? and t.date <= ? and t.account_id = ?
+            group by cat_id
+            having total <= 0 || total is null
+            order by absolute desc
+        ', [$startDate, $endDate, $accountId]);
     }
 
     public function user()
