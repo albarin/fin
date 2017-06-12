@@ -26,6 +26,11 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    <style>
+        .control.has-icons-left .input, .control.has-icons-left .select select {
+            padding-left: 2.25em;
+        }
+    </style>
 </head>
 <body>
 <div id="app">

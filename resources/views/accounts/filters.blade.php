@@ -1,20 +1,17 @@
 <nav class="level">
     <form method="get" action="{{ route('accounts.show', [$account]) }}">
         <div class="field is-horizontal" style="display: flex; align-items: center;">
-            <span style="margin-right: 5px" class="icon">
-                <i class="fa fa-calendar"></i>
-            </span>
-            <p style="margin-right: 10px" class="control">
-                <input class="input" name="daterange">
+            <p style="margin-right: 10px" class="control has-icons-left">
+                <input style="width: 245px" class="input" name="daterange">
+                <span class="icon is-small is-left">
+                    <i class="fa fa-calendar"></i>
+                </span>
             </p>
 
-            <span style="margin-right: 5px" class="icon">
-                <i class="fa fa-tag"></i>
-            </span>
-            <p class="control">
+            <p class="control has-icons-left">
                 <span class="select">
                     <select name="category_id">
-                        <option value="">- Select category -</option>
+                        <option value="">Select category</option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}" {{ $category->id == $selectedCategoryId ? 'selected' : '' }}>{{ $category->name }}</option>
                             @if (!$category->children->isEmpty())
@@ -24,6 +21,9 @@
                             @endif
                         @endforeach
                     </select>
+                </span>
+                <span class="icon is-small is-left">
+                    <i class="fa fa-tag"></i>
                 </span>
             </p>
 
