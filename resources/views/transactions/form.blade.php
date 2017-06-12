@@ -47,9 +47,11 @@
 
 <div class="field">
     <label for="amount_id">Date</label>
-    <p class="control has-icons-right">
+    <p class="control has-icons-left has-icons-right">
         <input class="input {{ $errors->has('date') ? 'is-danger' : '' }}" type="text" id="date" name="date" value="{{ isset($transaction) ? $transaction->date : old('date') }}">
-
+        <span class="icon is-small is-left">
+            <i class="fa fa-calendar"></i>
+        </span>
         @if ($errors->has('date'))
             <span class="icon is-small is-right">
                 <i class="fa fa-warning"></i>
@@ -78,6 +80,24 @@
 </div>
 
 <div class="field">
+    <label for="destination_id">Transfer to</label>
+    <p class="control">
+        <span class="select {{ $errors->has('_id') ? 'is-danger' : '' }}">
+            <select class="control" name="destination_id" id="destination_id">
+                <option value="">- Select account -</option>
+                @foreach ($accounts as $id => $name)
+                    <option value="{{ $id }}">{{ $name }}</option>
+                @endforeach
+            </select>
+        </span>
+
+        @if ($errors->has('destination_id'))
+            <p class="help is-danger">{{ $errors->first('destination_id') }}</p>
+        @endif
+    </p>
+</div>
+
+<div class="field">
     <label for="category_id">Category</label>
     <p class="control">
         <span class="select {{ $errors->has('category_id') ? 'is-danger' : '' }}">
@@ -101,3 +121,14 @@
 <p class="control">
     <button type="submit" class="button is-primary">Save</button>
 </p>
+
+<script>
+    $(document).ready(function () {
+        $('input[name=date]').daterangepicker({
+            singleDatePicker: true,
+            locale: {
+                format: 'DD/MM/YYYY'
+            },
+        });
+    });
+</script>
