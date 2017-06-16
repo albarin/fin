@@ -41,7 +41,7 @@ class Transaction extends Model
             : 'green';
     }
 
-    public function scopeFilter($query, $startDate, $endDate, $categoryId)
+    public function scopeFilter($query, $startDate, $endDate, $categoryId = null)
     {
         $query->where('date', '>=', $startDate)
             ->where('date', '<=', $endDate);

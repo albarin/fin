@@ -28,6 +28,7 @@ class StoreTransaction extends FormRequest
             'amount' => 'required|numeric',
             'date' => 'required|date_format:d/m/Y',
             'account_id' => 'required|exists:accounts,id',
+            'destination_id' => 'nullable|exists:accounts,id|different:account_id',
             'category_id' => 'nullable|exists:categories,id',
         ];
     }
