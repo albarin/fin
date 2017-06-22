@@ -2,17 +2,15 @@
 
 @section('title')
     Tags
-    <a class="button is-pulled-right is-primary is-inverted" href="{{ route('tags.create') }}">Add tag</a>
+    <a class="button is-pulled-right is-primary is-inverted" href="{{ route('tags.create') }}">
+        Add tag
+    </a>
 @endsection
 
 @section('main')
-    @if (session('error'))
-        <div class="notification is-warning">
-            {{ session('error') }}
-        </div>
-    @endif
+    @include('layouts.errors')
 
-    @if (count($tags) > 0)
+    @if ($tags->isNotEmpty())
         <table class="table">
             <thead>
             <tr>

@@ -9,28 +9,20 @@ use Illuminate\Support\Facades\Auth;
 
 class TagController extends Controller
 {
-    /**
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
+        $tags = Auth::user()->tags;
+
         return view('tags.index', [
-            'tags' => Auth::user()->tags,
+            'tags' => $tags,
         ]);
     }
 
-    /**
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('tags.create');
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $tag = new Tag($request->all());
@@ -41,10 +33,6 @@ class TagController extends Controller
         return redirect()->route('tags.index');
     }
 
-    /**
-     * @param \App\Tag $tag
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Tag $tag)
     {
         return view('tags.edit', [
@@ -52,11 +40,6 @@ class TagController extends Controller
         ]);
     }
 
-    /**
-     * @param StoreTag $request
-     * @param \App\Tag $tag
-     * @return \Illuminate\Http\Response
-     */
     public function update(StoreTag $request, Tag $tag)
     {
         $tag->update($request->all());
@@ -64,13 +47,9 @@ class TagController extends Controller
         return redirect()->route('tags.index');
     }
 
-    /**
-     * @param \App\Tag $tag
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Tag $tag)
     {
-        if (!$tag->transactions->isEmpty()) {
+        if ($tag->hasTransactions()) {
             return redirect()
                 ->route('tags.index')
                 ->with('error', 'Cannot delete tags with transactions');

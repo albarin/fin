@@ -10,6 +10,11 @@ class Tag extends Model
         'name',
     ];
 
+    public function hasTransactions()
+    {
+        return $this->transactions->isNotEmpty();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
