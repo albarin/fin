@@ -30,7 +30,9 @@ class TagController extends Controller
             ->associate(Auth::user())
             ->save();
 
-        return redirect()->route('tags.index');
+        return redirect()
+            ->route('tags.index')
+            ->with('flash', 'New tag created successfully');
     }
 
     public function edit(Tag $tag)
@@ -57,6 +59,8 @@ class TagController extends Controller
 
         $tag->delete();
 
-        return redirect()->route('tags.index');
+        return redirect()
+            ->route('tags.index')
+            ->with('flash', 'Tag removed successfully');
     }
 }

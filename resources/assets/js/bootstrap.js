@@ -44,3 +44,9 @@ window.axios.defaults.headers.common = {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+window.event = new Vue();
+
+window.flash = function (type, message) {
+    window.event.$emit('flash', type, message);
+};

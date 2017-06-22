@@ -34,12 +34,14 @@
 </head>
 <body>
 <div id="app">
-{{--    @include('layouts.nav')--}}
+    {{-- @include('layouts.nav') --}}
 
     @yield('content')
+
+    <flash kind="{{ session('type') }}" message="{{ session('flash') }}" ></flash>
 </div>
 
 <!-- Scripts -->
-{{--<script src="{{ asset('js/app.js') }}"></script>--}}
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
