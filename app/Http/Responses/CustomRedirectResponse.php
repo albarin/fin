@@ -6,20 +6,29 @@ use Illuminate\Http\RedirectResponse;
 
 class CustomRedirectResponse extends RedirectResponse
 {
-    /**
-     * Flash a piece of data to the session.
-     *
-     * @param  mixed  $message
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function withSuccess($message = null)
+    public function withDefault($message)
+    {
+        return $this->withNotification('', $message);
+    }
+
+    public function withSuccess($message)
     {
         return $this->withNotification('is-success', $message);
     }
 
-    public function withWarning($message = null)
+    public function withWarning($message)
     {
         return $this->withNotification('is-warning', $message);
+    }
+
+    public function withInfo($message)
+    {
+        return $this->withNotification('is-info', $message);
+    }
+
+    public function withDanger($message)
+    {
+        return $this->withNotification('is-danger', $message);
     }
 
     protected function withNotification($type, $message)
