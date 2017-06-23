@@ -1,19 +1,19 @@
 <template>
-    <div class="alert notification" v-bind:class="['is-' + type]" v-show="show">
-        <strong>Success!</strong> {{ body }}
+    <div class="alert notification" v-bind:class="type" v-show="show">
+        {{ body }}
     </div>
 </template>
 
 <script>
     export default {
         props: [
-            'message',
-            'kind'
+            'kind',
+            'message'
         ],
 
         data() {
             return {
-                type: 'success',
+                type: 'is-success',
                 body: '',
                 show: false,
             }
@@ -21,7 +21,7 @@
 
         created() {
             if (this.message) {
-                this.flash(this.type, this.message);
+                this.flash(this.kind, this.message);
             }
 
             window.event.$on('flash', (type, message) => {

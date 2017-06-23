@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Responses\CustomRedirector;
 use App\Money\Balance;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -27,6 +28,16 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(Balance::class, function() {
             return new Balance(env('INITIAL_BALANCE'));
+        });
+
+        $this->app->singleton('redirect', function ($app) {
+            $redirector = new CustomRedirector($app['url']);
+
+            if (isset($app['session.store'])) {
+                $redirector->setSession($app['session.store']);
+            }
+
+            return $redirector;
         });
     }
 }

@@ -32,7 +32,7 @@ class TagController extends Controller
 
         return redirect()
             ->route('tags.index')
-            ->with('flash', 'New tag created successfully');
+            ->withSuccess('New tag created successfully');
     }
 
     public function edit(Tag $tag)
@@ -46,7 +46,9 @@ class TagController extends Controller
     {
         $tag->update($request->all());
 
-        return redirect()->route('tags.index');
+        return redirect()
+            ->route('tags.index')
+            ->withSuccess('Tag updated successfully');
     }
 
     public function destroy(Tag $tag)
@@ -54,13 +56,13 @@ class TagController extends Controller
         if ($tag->hasTransactions()) {
             return redirect()
                 ->route('tags.index')
-                ->with('error', 'Cannot delete tags with transactions');
+                ->withWarning('Cannot delete tag with associated transactions');
         }
 
         $tag->delete();
 
         return redirect()
             ->route('tags.index')
-            ->with('flash', 'Tag removed successfully');
+            ->withSuccess('Tag removed successfully');
     }
 }

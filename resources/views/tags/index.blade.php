@@ -8,8 +8,6 @@
 @endsection
 
 @section('main')
-    @include('layouts.errors')
-
     @if ($tags->isNotEmpty())
         <table class="table">
             <thead>
