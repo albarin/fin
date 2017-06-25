@@ -16,7 +16,9 @@ class Balance
      */
     public function currentBalance($accountId)
     {
-        return $this->balanceUntil(Carbon::today()->endOfDay(), $accountId);
+        $balanceUntil = $this->balanceUntil(Carbon::today()->endOfDay(), $accountId);
+
+        return number_format($balanceUntil, 2, '.', '');
     }
 
     /**
