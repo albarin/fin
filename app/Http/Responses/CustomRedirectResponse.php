@@ -13,22 +13,22 @@ class CustomRedirectResponse extends RedirectResponse
 
     public function withSuccess($message)
     {
-        return $this->withNotification('is-success', $message);
+        return $this->withNotification('success', $message);
     }
 
     public function withWarning($message)
     {
-        return $this->withNotification('is-warning', $message);
+        return $this->withNotification('warning', $message);
     }
 
     public function withInfo($message)
     {
-        return $this->withNotification('is-info', $message);
+        return $this->withNotification('info', $message);
     }
 
     public function withDanger($message)
     {
-        return $this->withNotification('is-danger', $message);
+        return $this->withNotification('danger', $message);
     }
 
     protected function withNotification($type, $message)
