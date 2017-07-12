@@ -10,19 +10,15 @@ use Illuminate\Support\Facades\Auth;
 
 class BudgetController extends Controller
 {
-    /**
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
+        $budgets = Auth::user()->budgets;
+
         return view('budgets.index', [
-            'budgets' => Auth::user()->budgets,
+            'budgets' => $budgets,
         ]);
     }
 
-    /**
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('budgets.create', [
@@ -30,10 +26,6 @@ class BudgetController extends Controller
         ]);
     }
 
-    /**
-     * @param StoreBudget $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreBudget $request)
     {
         $budget = new Budget($request->all());
@@ -42,13 +34,10 @@ class BudgetController extends Controller
             ->save();
 
         return redirect()
-            ->route('budgets.index');
+            ->route('budgets.index')
+            ->withSuccess('New budget created successfully');
     }
 
-    /**
-     * @param  \App\Budget $budget
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Budget $budget)
     {
         return view('budgets.edit', [
@@ -57,28 +46,21 @@ class BudgetController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param StoreBudget $request
-     * @param  \App\Budget $budget
-     * @return \Illuminate\Http\Response
-     */
     public function update(StoreBudget $request, Budget $budget)
     {
         $budget->update($request->all());
 
-        return redirect()->route('budgets.index');
+        return redirect()
+            ->route('budgets.index')
+            ->withSuccess('Budget updated successfully');
     }
 
-    /**
-     * @param  \App\Budget $budget
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Budget $budget)
     {
         $budget->delete();
 
-        return redirect()->route('budgets.index');
+        return redirect()
+            ->route('budgets.index')
+            ->withSuccess('Budget removed successfully');
     }
 }

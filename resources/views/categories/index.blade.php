@@ -6,11 +6,7 @@
 @endsection
 
 @section('main')
-    @if (session('error'))
-        <div class="notification is-warning">
-            {{ session('error') }}
-        </div>
-    @endif
+    @include('layouts.errors')
 
     @if (count($categories) > 0)
         <table class="table">

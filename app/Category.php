@@ -14,7 +14,24 @@ class Category extends Model
 
     public function scopeParents($query)
     {
-        return $query->where('category_id', '=', null)->orderBy('name');
+        return $query
+            ->where('category_id', '=', null)
+            ->orderBy('name');
+    }
+
+    public function hasTransactions()
+    {
+        return $this->transactions->isNotEmpty();
+    }
+
+    public function hasBudget()
+    {
+        return $this->budget->isNotEmpty();
+    }
+
+    public function hasChildren()
+    {
+        return $this->children->isNotEmpty();
     }
 
     public function category()
