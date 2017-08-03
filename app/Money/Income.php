@@ -20,7 +20,7 @@ class Income
             ->select(DB::raw('sum(amount) as income'))
             ->where('date', '>=', $startDate)
             ->where('date', '<=', $endDate)
-//            ->where('ignore', false)
+            ->where('ignore', false)
             ->where('amount', '>', 0)
             ->value('income');
     }

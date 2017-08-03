@@ -20,7 +20,7 @@ class Expenses
             ->select(DB::raw('sum(amount) as expenses'))
             ->where('date', '>=', $startDate)
             ->where('date', '<=', $endDate)
-//            ->where('ignore', false)
+            ->where('ignore', false)
             ->where('amount', '<', 0)
             ->value('expenses');
 

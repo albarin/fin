@@ -46,6 +46,15 @@
     </p>
 </div>
 
+<div class="field">
+    <div class="control" style="margin-left: 20px;">
+        <label class="checkbox">
+            <input type="checkbox" name="ignore" value="1" {{ isset($category) && $category->ignore ? 'checked' : '' }}>
+            Ignore on balance
+        </label>
+    </div>
+</div>
+
 <p class="control">
     <button type="submit" class="button is-primary">Save</button>
     <a class="button is-primary is-inverted" href="{{ route('categories.index') }}">Cancel</a>

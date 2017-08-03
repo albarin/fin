@@ -79,25 +79,34 @@
     </p>
 </div>
 
-@if (!isset($transaction))
-    <div class="field">
-        <label for="destination_id">Transfer to</label>
-        <p class="control">
-            <span class="select {{ $errors->has('_id') ? 'is-danger' : '' }}">
-                <select class="control" name="destination_id" id="destination_id">
-                    <option value="">- Select account -</option>
-                    @foreach ($accounts as $id => $name)
-                        <option value="{{ $id }}">{{ $name }}</option>
-                    @endforeach
-                </select>
-            </span>
+{{--@if (!isset($transaction))--}}
+    {{--<div class="field">--}}
+        {{--<label for="destination_id">Transfer to</label>--}}
+        {{--<p class="control">--}}
+            {{--<span class="select {{ $errors->has('_id') ? 'is-danger' : '' }}">--}}
+                {{--<select class="control" name="destination_id" id="destination_id">--}}
+                    {{--<option value="">- Select account -</option>--}}
+                    {{--@foreach ($accounts as $id => $name)--}}
+                        {{--<option value="{{ $id }}">{{ $name }}</option>--}}
+                    {{--@endforeach--}}
+                {{--</select>--}}
+            {{--</span>--}}
 
-            @if ($errors->has('destination_id'))
-                <p class="help is-danger">{{ $errors->first('destination_id') }}</p>
-            @endif
-        </p>
+            {{--@if ($errors->has('destination_id'))--}}
+                {{--<p class="help is-danger">{{ $errors->first('destination_id') }}</p>--}}
+            {{--@endif--}}
+        {{--</p>--}}
+    {{--</div>--}}
+{{--@endif--}}
+
+<div class="field" style="margin-left: 20px;">
+    <div class="control">
+        <label class="checkbox">
+            <input type="checkbox" name="ignore" value="1" {{ isset($transaction) && $transaction->ignore ? 'checked' : '' }}>
+            Ignore on balance
+        </label>
     </div>
-@endif
+</div>
 
 <div class="field">
     <label for="category_id">Category</label>

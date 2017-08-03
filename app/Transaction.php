@@ -15,6 +15,7 @@ class Transaction extends Model
         'date',
         'account_id',
         'category_id',
+        'ignore',
     ];
 
     protected $dates = ['date'];
@@ -65,6 +66,7 @@ class Transaction extends Model
                 abs(sum(t.amount)) as absolute
             from categories as c
             left join transactions as t on t.category_id = c.id and t.date >= ? and t.date <= ? and t.account_id = ?
+            where c.ignore is false
             group by cat_id
             having total <= 0 || total is null
             order by absolute desc

@@ -49,7 +49,10 @@ class CategoryController extends Controller
 
     public function update(StoreCategory $request, Category $category)
     {
-        $category->update($request->all());
+        $data = $request->all();
+        $data['ignore'] = $request->has('ignore');
+
+        $category->update($data);
 
         return redirect()
             ->route('categories.index')

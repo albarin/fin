@@ -68,7 +68,10 @@ class TransactionController extends Controller
      */
     public function update(StoreTransaction $request, Transaction $transaction)
     {
-        $transaction->update($request->all());
+        $data = $request->all();
+        $data['ignore'] = $request->has('ignore');
+
+        $transaction->update($data);
 
         return redirect()->route('accounts.show', [$transaction->account]);
     }

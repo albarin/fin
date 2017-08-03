@@ -9,7 +9,8 @@ class Category extends Model
     protected $fillable = [
         'name',
         'color',
-        'category_id'
+        'category_id',
+        'ignore',
     ];
 
     public function scopeParents($query)

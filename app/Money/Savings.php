@@ -20,7 +20,7 @@ class Savings
             ->select(DB::raw('sum(amount) as savings'))
             ->where('date', '>=', $startDate)
             ->where('date', '<=', $endDate)
-//            ->where('ignore', false)
+            ->where('ignore', false)
             ->value('savings');
     }
 
