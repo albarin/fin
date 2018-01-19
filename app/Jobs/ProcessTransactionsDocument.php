@@ -6,10 +6,10 @@ use App\Account;
 use App\Transaction;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Maatwebsite\Excel\Collections\CellCollection;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -63,7 +63,7 @@ class ProcessTransactionsDocument implements ShouldQueue
             'name' => $line[0],
             'description' => $line[3],
             'amount' => str_replace(',', '', $line[4]),
-            'date' => $line[1],
+            'date' => Carbon::createFromFormat('m/d/Y', $line[1])->format('d/m/Y'),
         ];
     }
 

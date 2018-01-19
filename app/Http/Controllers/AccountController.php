@@ -6,6 +6,8 @@ use App\Account;
 use App\Category;
 use App\Http\Requests\StoreAccount;
 use App\Money\Balance;
+use App\Money\Expenses;
+use App\Money\Income;
 use App\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,10 +16,14 @@ use Illuminate\Support\Facades\Auth;
 class AccountController extends Controller
 {
     private $balance;
+    private $expenses;
+    private $income;
 
-    public function __construct(Balance $balance)
+    public function __construct(Balance $balance, Expenses $expenses, Income $income)
     {
         $this->balance = $balance;
+        $this->expenses = $expenses;
+        $this->income = $income;
     }
 
     /**
@@ -50,7 +56,7 @@ class AccountController extends Controller
             ->transactions()
             ->filter($startDate, $endDate, $request->get('category_id'))
             ->orderBy('date', 'desc')
-            ->paginate(20);
+            ->paginate(100);
 
         $byCategories = Transaction::byCategories($startDate, $endDate, $account->id);
 
@@ -62,6 +68,8 @@ class AccountController extends Controller
             'endDate' => $endDate->format('d/m/Y'),
             'selectedCategoryId' => $request->get('category_id'),
             'balance' => $this->balance->currentBalance($account->id),
+            'expenses' => $this->expenses->expenses($startDate, $endDate, $account->id),
+            'income' => $this->income->income($startDate, $endDate, $account->id),
             'chart' => $this->getChart($byCategories),
         ]);
     }
@@ -108,6 +116,7 @@ class AccountController extends Controller
 
         return redirect()->route('accounts.index');
     }
+
 
     /**
      * @param  \App\Account $account

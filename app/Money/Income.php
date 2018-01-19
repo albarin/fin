@@ -12,17 +12,21 @@ class Income
      *
      * @param \DateTime $startDate
      * @param \DateTime $endDate
+     * @param int $accountId
      * @return int
      */
-    public function income($startDate, $endDate)
+    public function income($startDate, $endDate, $accountId)
     {
-        return DB::table('transactions')
+        $total = DB::table('transactions')
             ->select(DB::raw('sum(amount) as income'))
             ->where('date', '>=', $startDate)
             ->where('date', '<=', $endDate)
             ->where('ignore', false)
             ->where('amount', '>', 0)
+            ->where('account_id', $accountId)
             ->value('income');
+
+        return $total ?: 0;
     }
 
     /**

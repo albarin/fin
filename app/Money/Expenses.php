@@ -12,16 +12,20 @@ class Expenses
      *
      * @param \DateTime $startDate
      * @param \DateTime $endDate
+     * @param int $accountId
      * @return int
      */
-    public function expenses($startDate, $endDate)
+    public function expenses($startDate, $endDate, $accountId)
     {
         $expenses = DB::table('transactions')
+            ->join('categories', 'categories.id', '=', 'transactions.category_id')
             ->select(DB::raw('sum(amount) as expenses'))
-            ->where('date', '>=', $startDate)
-            ->where('date', '<=', $endDate)
-            ->where('ignore', false)
-            ->where('amount', '<', 0)
+            ->where('transactions.date', '>=', $startDate)
+            ->where('transactions.date', '<=', $endDate)
+            ->where('transactions.ignore', false)
+            ->where('transactions.amount', '<', 0)
+            ->where('transactions.account_id', $accountId)
+            ->where('categories.ignore', false)
             ->value('expenses');
 
         return abs($expenses);

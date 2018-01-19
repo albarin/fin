@@ -52,7 +52,7 @@ class Balance
      * Get the sum of all transactions until a date
      *
      * @param \DateTime $date
-     * @param $accountId
+     * @param int $accountId
      * @return int
      */
     private function balanceUntil(\DateTime $date, $accountId)

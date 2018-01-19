@@ -30,6 +30,7 @@ class StoreTransaction extends FormRequest
             'account_id' => 'required|exists:accounts,id',
             'destination_id' => 'nullable|exists:accounts,id|different:account_id',
             'category_id' => 'nullable|exists:categories,id',
+            'tag_id' => 'nullable|exists:tags,id',
         ];
     }
 }

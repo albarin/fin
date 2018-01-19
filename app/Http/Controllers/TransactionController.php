@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Account;
 use App\Category;
 use App\Http\Requests\StoreTransaction;
+use App\Tag;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,7 @@ class TransactionController extends Controller
             'selectedAccountId' => $request->get('account_id'),
             'accounts' => Account::pluck('name', 'id'),
             'categories' => Category::parents()->get(),
+            'tags' => Tag::all(),
         ]);
     }
 
@@ -44,6 +46,9 @@ class TransactionController extends Controller
         $transaction->user()
             ->associate(Auth::user())
             ->save();
+        $transaction->tags()->sync(
+            collect($request->tag_ids)->filter()->all()
+        );
 
         return redirect()->route('accounts.show', [$transaction->account]);
     }
@@ -57,6 +62,7 @@ class TransactionController extends Controller
         return view('transactions.edit', [
             'accounts' => Account::pluck('name', 'id'),
             'categories' => Category::parents()->get(),
+            'tags' => Tag::all(),
             'transaction' => $transaction,
         ]);
     }
@@ -71,6 +77,9 @@ class TransactionController extends Controller
         $data = $request->all();
         $data['ignore'] = $request->has('ignore');
 
+        $transaction->tags()->sync(
+            collect($request->tag_ids)->filter()->all()
+        );
         $transaction->update($data);
 
         return redirect()->route('accounts.show', [$transaction->account]);
@@ -79,9 +88,11 @@ class TransactionController extends Controller
     /**
      * @param  \App\Transaction $transaction
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Transaction $transaction)
     {
+        $transaction->tags()->detach();
         $transaction->delete();
 
         return redirect()->back();

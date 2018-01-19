@@ -129,6 +129,24 @@
     </p>
 </div>
 
+<div class="field">
+    <label for="tag_ids">Tag</label>
+    <p class="control">
+        <span class="select is-multiple {{ $errors->has('tag_ids') ? 'is-danger' : '' }}">
+            <select class="control" name="tag_ids[]" id="tag_ids" multiple size="5">
+                <option value="">- Select tag -</option>
+                @foreach ($tags as $tag)
+                    <option value="{{ $tag->id }}" {{ isset($transaction) && in_array($tag->id, $transaction->tags()->pluck('tag_id')->toArray()) ? 'selected' : '' }}>{{ $tag->name }}</option>
+                @endforeach
+            </select>
+        </span>
+
+    @if ($errors->has('tag_id'))
+        <p class="help is-danger">{{ $errors->first('tag_id') }}</p>
+    @endif
+    </p>
+</div>
+
 <p class="control">
     <button type="submit" class="button is-primary">Save</button>
 </p>

@@ -11,6 +11,17 @@
 
 @section('main')
     @include('accounts.filters')
+    <div class="columns">
+        <div class="column">
+            <p class="subtitle is-5"><strong>Expenses:</strong> {{ $expenses }}&euro;</p>
+        </div>
+        <div class="column">
+            <p class="subtitle is-5"><strong>Income:</strong> {{ $income }}&euro;</p>
+        </div>
+        <div class="column">
+            <p class="subtitle is-5"><strong>Balance:</strong> {{ $income - $expenses }}&euro;</p>
+        </div>
+    </div>
 
     @if ($chart)
         <canvas id="myChart" height="100"></canvas>
@@ -75,9 +86,7 @@
                         <strong>{{ $transaction->name }}</strong>
                         @if ($transaction->tags->isNotEmpty())
                             <p style="font-size: 13px">
-                                <strong>
-                                    {{ $transaction->tags()->pluck('name')->implode(',') }}
-                                </strong>
+                                {{ $transaction->tags()->pluck('name')->implode(', ') }}
                             </p>
                         @endif
                     </td>
