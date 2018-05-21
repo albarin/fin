@@ -156,7 +156,8 @@
         $('input[name=date]').daterangepicker({
             singleDatePicker: true,
             locale: {
-                format: 'DD/MM/YYYY'
+                format: 'DD/MM/YYYY',
+                firstDay: 1
             },
         });
     });

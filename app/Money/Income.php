@@ -18,12 +18,14 @@ class Income
     public function income($startDate, $endDate, $accountId)
     {
         $total = DB::table('transactions')
+            ->join('categories', 'categories.id', '=', 'transactions.category_id')
             ->select(DB::raw('sum(amount) as income'))
             ->where('date', '>=', $startDate)
             ->where('date', '<=', $endDate)
-            ->where('ignore', false)
+            ->where('transactions.ignore', false)
             ->where('amount', '>', 0)
             ->where('account_id', $accountId)
+            ->where('categories.ignore', false)
             ->value('income');
 
         return $total ?: 0;
