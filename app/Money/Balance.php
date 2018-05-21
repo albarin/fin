@@ -9,6 +9,21 @@ use Illuminate\Support\Facades\DB;
 class Balance
 {
     /**
+     * Get current total balance
+     *
+     * @return int
+     */
+    public function total()
+    {
+        $total = 0;
+        foreach (Account::all() as $account) {
+            $total += $this->balanceUntil(Carbon::today()->endOfDay(), $account->id);
+        }
+
+        return number_format($total, 2, '.', '');
+    }
+
+    /**
      * Get current balance in cents
      *
      * @param $accountId

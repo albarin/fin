@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Account;
 use App\Http\Requests\ImportTransactions;
 use App\Jobs\ProcessTransactionsDocument;
 use Illuminate\Support\Facades\Auth;

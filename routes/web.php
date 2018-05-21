@@ -11,14 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', 'HomeController@index');
-    Route::get('/import', 'ImportController@import');
-    Route::post('/upload', 'ImportController@upload');
+    Route::get('/', 'HomeController@index')->name('foo');
+    Route::get('import', 'ImportController@import');
+    Route::post('upload', 'ImportController@upload');
     Route::resource('accounts', 'AccountController');
     Route::resource('categories', 'CategoryController');
     Route::resource('budgets', 'BudgetController');
