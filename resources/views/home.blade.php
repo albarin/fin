@@ -22,4 +22,21 @@
             @endforeach
         </tbody>
     </table>
+
+    <table class="table is-narrow">
+        <thead>
+        <tr>
+            <th>Month</th>
+            <th>Expenses</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach ($lastYearExpenses as $month => $expenses)
+            <tr>
+                <td>{{ $month }}</td>
+                <td>{{ $expenses }}&euro;</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 @endsection

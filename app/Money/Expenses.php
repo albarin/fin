@@ -34,13 +34,38 @@ class Expenses
     /**
      * Get the previous month expenses in cents
      *
+     * @param int $accountId
      * @return int
      */
-    public function lastMonthExpenses()
+    public function lastMonthExpenses(int $accountId)
     {
         return $this->expenses(
             Carbon::today()->subMonth()->startOfMonth(),
-            Carbon::today()->subMonth()->endOfMonth()
+            Carbon::today()->subMonth()->endOfMonth(),
+            $accountId
         );
+    }
+
+    /**
+     * Get the current year expenses in cents
+     *
+     * @param int $accountId
+     * @return array
+     */
+    public function lastYearExpenses(int $accountId): array
+    {
+        $year = [];
+
+        foreach (range(0, 11) as $i) {
+            $month = Carbon::today()->subMonth($i);
+
+            $year[$month->format('F Y')] = $this->expenses(
+                $month->startOfMonth(),
+                $month->copy()->endOfMonth(),
+                $accountId
+            );
+        }
+
+        return $year;
     }
 }
