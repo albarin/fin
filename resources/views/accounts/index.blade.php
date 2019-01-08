@@ -41,5 +41,9 @@
                 @endforeach
             </tbody>
         </table>
+    @else
+        <div class="notification">
+            No accounts created
+        </div>
     @endif
 @endsection
